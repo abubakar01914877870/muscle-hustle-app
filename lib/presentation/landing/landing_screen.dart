@@ -6,6 +6,7 @@ import '../auth/register_screen.dart';
 import '../blog/blog_list_screen.dart';
 import '../gyms/gym_list_screen.dart';
 import '../trainers/trainer_list_screen.dart';
+import '../exercises/exercises_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -230,7 +231,7 @@ class _LandingScreenState extends State<LandingScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const LoginScreen(),
+                                builder: (_) => const ExercisesScreen(),
                               ),
                             );
                           },

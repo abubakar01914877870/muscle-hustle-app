@@ -8,6 +8,8 @@ abstract class ExerciseRemoteDataSource {
     String? muscleGroup,
     String? category,
     String? search,
+    int page = 1,
+    int limit = 20,
   });
 }
 
@@ -21,9 +23,14 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
     String? muscleGroup,
     String? category,
     String? search,
+    int page = 1,
+    int limit = 20,
   }) async {
     try {
-      final Map<String, dynamic> queryParams = {};
+      final Map<String, dynamic> queryParams = {
+        'page': page,
+        'limit': limit,
+      };
       if (muscleGroup != null && muscleGroup != 'All') {
         queryParams['muscle_group'] = muscleGroup;
       }
@@ -35,7 +42,7 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
       }
 
       final response = await _apiClient.dio.get(
-        ApiConstants.exercises,
+        ApiConstants.exercisesPublic,
         queryParameters: queryParams,
       );
 

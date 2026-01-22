@@ -10,11 +10,15 @@ class ExerciseRepository {
     String? muscleGroup,
     String? category,
     String? search,
+    int page = 1,
+    int limit = 20,
   }) async {
     return await _remoteDataSource.getExercises(
       muscleGroup: muscleGroup,
       category: category,
       search: search,
+      page: page,
+      limit: limit,
     );
   }
 }

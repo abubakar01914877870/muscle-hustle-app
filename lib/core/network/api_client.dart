@@ -39,6 +39,12 @@ class _AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    // Skip authentication for public endpoints
+    if (options.path.contains('/public')) {
+      handler.next(options);
+      return;
+    }
+
     // Get access token
     final accessToken = await _storage.getAccessToken();
 

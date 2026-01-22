@@ -30,6 +30,8 @@ class ExercisesNotifier extends StateNotifier<AsyncValue<List<ExerciseModel>>> {
     String? muscleGroup,
     String? category,
     String? search,
+    int page = 1,
+    int limit = 20,
   }) async {
     try {
       state = const AsyncValue.loading();
@@ -37,6 +39,8 @@ class ExercisesNotifier extends StateNotifier<AsyncValue<List<ExerciseModel>>> {
         muscleGroup: muscleGroup,
         category: category,
         search: search,
+        page: page,
+        limit: limit,
       );
       state = AsyncValue.data(exercises);
     } catch (e, stack) {

@@ -13,6 +13,7 @@ class ApiConstants {
 
   static const String workouts = '/workouts';
   static const String exercises = '/exercises';
+  static const String exercisesPublic = '/exercises/public';
   static const String progress = '/progress';
   static const String dietPlans = '/diet-plans';
   static const String blog = '/blog';
