@@ -1,5 +1,20 @@
 # Muscle Hustle - Flutter Mobile App
 
+### 🚀 Quick Start: How to Run
+To run the application on your machine, use the following commands:
+
+**Run in Chrome (Web):**
+```bash
+flutter run -d chrome
+```
+
+**Run in Simulator/Emulator:**
+1. List available emulators: `flutter emulators`
+2. Launch an emulator: `flutter emulators --launch <emulator_id>`
+3. Run the app: `flutter run`
+
+---
+
 A cross-platform mobile fitness tracking application built with Flutter, featuring offline-first architecture and seamless background synchronization.
 
 ## Features

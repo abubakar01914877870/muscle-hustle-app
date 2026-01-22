@@ -59,15 +59,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
   // Check if user is already authenticated
   Future<void> _checkAuthStatus() async {
     try {
+      print('🔍 Checking auth status...');
       final isAuth = await _repository.isAuthenticated();
+      print('🔍 Is authenticated: $isAuth');
+
       if (isAuth) {
+        print('🔍 Getting current user from API...');
         // Get user from API
         final user = await _repository.getCurrentUser();
+        print('✅ User fetched: ${user.email}');
         state = state.copyWith(status: AuthStatus.authenticated, user: user);
       } else {
+        print('❌ No tokens found, showing login');
         state = state.copyWith(status: AuthStatus.unauthenticated);
       }
     } catch (e) {
+      print('❌ Auth check error: $e');
       state = state.copyWith(status: AuthStatus.unauthenticated);
     }
   }
@@ -77,13 +84,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(status: AuthStatus.loading, error: null);
 
     try {
+      print('🔐 Logging in...');
       final user = await _repository.login(email, password);
+      print('✅ Login successful, user: ${user.email}');
       state = state.copyWith(
         status: AuthStatus.authenticated,
         user: user,
         error: null,
       );
     } catch (e) {
+      print('❌ Login failed: $e');
       state = state.copyWith(
         status: AuthStatus.unauthenticated,
         error: e.toString(),

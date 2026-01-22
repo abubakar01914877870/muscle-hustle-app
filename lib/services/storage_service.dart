@@ -2,7 +2,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Secure storage service for JWT tokens and user data
 class StorageService {
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage(
+    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    webOptions: WebOptions(),
+  );
 
   // Storage keys
   static const String _accessTokenKey = 'access_token';
@@ -12,20 +15,32 @@ class StorageService {
 
   /// Save authentication tokens
   Future<void> saveTokens(String accessToken, String refreshToken) async {
+    print('💾 Saving tokens...');
     await Future.wait([
       _storage.write(key: _accessTokenKey, value: accessToken),
       _storage.write(key: _refreshTokenKey, value: refreshToken),
     ]);
+    print('✅ Tokens saved successfully');
   }
 
   /// Get access token
   Future<String?> getAccessToken() async {
-    return await _storage.read(key: _accessTokenKey);
+    try {
+      return await _storage.read(key: _accessTokenKey);
+    } catch (e) {
+      print('❌ Error reading access token: $e');
+      return null;
+    }
   }
 
   /// Get refresh token
   Future<String?> getRefreshToken() async {
-    return await _storage.read(key: _refreshTokenKey);
+    try {
+      return await _storage.read(key: _refreshTokenKey);
+    } catch (e) {
+      print('❌ Error reading refresh token: $e');
+      return null;
+    }
   }
 
   /// Save user information
@@ -55,6 +70,8 @@ class StorageService {
   Future<bool> hasTokens() async {
     final accessToken = await getAccessToken();
     final refreshToken = await getRefreshToken();
+    print('🔑 Access token exists: ${accessToken != null}');
+    print('🔑 Refresh token exists: ${refreshToken != null}');
     return accessToken != null && refreshToken != null;
   }
 }

@@ -15,6 +15,9 @@ class ApiConstants {
   static const String exercises = '/exercises';
   static const String progress = '/progress';
   static const String dietPlans = '/diet-plans';
+  static const String blog = '/blog';
+  static const String community = '/community';
+  static const String planner = '/planner';
 
   // Sync endpoints
   static const String syncWorkouts = '/workouts/sync';
